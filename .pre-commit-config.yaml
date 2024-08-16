@@ -25,3 +25,7 @@ repos:
     hooks:
       - id: mypy
         files: src/
+        additional_dependencies:
+          #  stable versions of table argument in models check
+          - "pydantic==v2.6.2"
+          - "sqlmodel==0.0.16"
