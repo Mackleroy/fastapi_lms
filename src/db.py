@@ -15,8 +15,8 @@ from src.settings import settings
 class DatabaseSessionManager:
     def __init__(self):
         self.engine: Optional[AsyncEngine] = None
-        self.session_maker = None
-        self.session = None
+        self.session_maker: Optional[async_sessionmaker] = None
+        self.session: Optional[async_scoped_session] = None
 
     def init_db(self):
         # Creating an asynchronous engine
@@ -50,11 +50,11 @@ sessionmanager = DatabaseSessionManager()
 
 
 async def get_session() -> AsyncIterator[AsyncSession]:
-    session = sessionmanager.session()
+    session = sessionmanager.session
     if session is None:
         raise Exception("DatabaseSessionManager is not initialized")
     try:
-        yield session
+        yield session()
     except Exception:
         await session.rollback()
         raise
