@@ -21,7 +21,7 @@ class DatabaseSessionManager:
     def init_db(self):
         # Creating an asynchronous engine
         self.engine = create_async_engine(
-            settings.database_url,
+            settings.database.database_url,
             pool_size=100,
             max_overflow=0,
             pool_pre_ping=False,
