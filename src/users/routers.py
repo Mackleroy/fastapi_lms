@@ -3,12 +3,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.db import get_session
 from src.users.schemas import UserList
+from src.users.selectors import get_users
 
 router = APIRouter()
 
 
-@router.get("/users")
-async def get_users(
+@router.get("/users", name="user-list")
+async def get_users_router(
     session: AsyncSession = Depends(get_session),
 ) -> list[UserList]:
     """Get all users."""
