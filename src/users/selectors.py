@@ -1,4 +1,4 @@
-from typing import Sequence
+from typing import Sequence, Optional
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -14,3 +14,16 @@ async def get_users(session: AsyncSession) -> Sequence[User]:
         session (AsyncSession): database session
     """
     return (await session.scalars(select(User).order_by(col(User.id)))).all()
+
+
+async def get_user_by_id(
+    session: AsyncSession,
+    user_id: int,
+) -> Optional[User]:
+    """Get user by id if exists.
+
+    Args:
+        session (AsyncSession): database session
+        user_id (int): user identifier
+    """
+    return await session.get(User, user_id)
