@@ -1,8 +1,7 @@
 from typing import Sequence, Optional
 
-from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlmodel import col
+from sqlmodel import col, select
 
 from src.users.models import User
 

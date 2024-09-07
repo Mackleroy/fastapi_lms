@@ -1,11 +1,9 @@
-import pytest
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.users.models import User
 from src.users.selectors import get_users, get_user_by_id
 
 
-@pytest.mark.asycnio
 async def test_get_users(user: User, session: AsyncSession):
     """Test selector returns all users"""
     second_user = User(
@@ -24,7 +22,6 @@ async def test_get_users(user: User, session: AsyncSession):
     assert len(result) == 2  # first from fixture
 
 
-@pytest.mark.asycnio
 async def test_get_user_by_id(user: User, session: AsyncSession):
     """Test selector returns user by id"""
     assert user.id is not None

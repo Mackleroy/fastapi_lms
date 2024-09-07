@@ -7,6 +7,7 @@ import httpx
 import pytest
 import pytest_asyncio
 from alembic.command import upgrade, downgrade
+from httpx import ASGITransport
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 from alembic.config import Config
 
@@ -108,7 +109,7 @@ def settings(settings_base) -> AsyncIterator[Settings]:
 @pytest_asyncio.fixture()
 async def client() -> AsyncIterator[httpx.AsyncClient]:
     """Asynchronous client for testing purposes"""
-    async with httpx.AsyncClient(app=app, base_url="http://testserver") as c:
+    async with httpx.AsyncClient(transport=ASGITransport(app=app), base_url="http://testserver") as c:
         yield c
 
 

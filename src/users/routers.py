@@ -14,7 +14,7 @@ async def get_users_router(
 ) -> list[UserList]:
     """Get all users."""
     users = await get_users(session)
-    return [UserList.from_orm(user) for user in users]
+    return [UserList.model_validate(user) for user in users]
 
 
 @router.get("/users/{user_id}", name="user-detail")
@@ -26,4 +26,4 @@ async def get_user_by_id_router(
     user = await get_user_by_id(session, user_id)
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    return UserDetail.from_orm(user)
+    return UserDetail.model_validate(user)
